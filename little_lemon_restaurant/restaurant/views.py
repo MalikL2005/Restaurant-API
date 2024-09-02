@@ -4,6 +4,9 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from .models import Booking, Menu
 from .serializers import menuSerializer, bookingSerializer
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
+from django.contrib.auth.mixins import PermissionRequiredMixin
 # from rest_framework.authentication import 
 
 # Create your views here.
@@ -25,3 +28,5 @@ class booking_two(ListCreateAPIView):
 class single_booking_two(RetrieveUpdateAPIView, DestroyAPIView):
     queryset = Booking.objects.all()
     serializer_class = bookingSerializer
+
+
