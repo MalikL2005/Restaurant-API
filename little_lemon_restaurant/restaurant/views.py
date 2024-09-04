@@ -10,7 +10,7 @@ from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnl
 
 # Create your views here.
 def index(req):
-    return render(req, 'index.html', {})
+    return render(req, 'login.html', {})
 
 class menuItemsView(ListCreateAPIView):
     queryset = Menu.objects.all()
