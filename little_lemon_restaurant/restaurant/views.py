@@ -5,8 +5,7 @@ from rest_framework.response import Response
 from .models import Booking, Menu
 from .serializers import menuSerializer, bookingSerializer
 from rest_framework.decorators import api_view, permission_classes
-from rest_framework.permissions import IsAuthenticated
-from django.contrib.auth.mixins import PermissionRequiredMixin
+from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
 # from rest_framework.authentication import 
 
 # Create your views here.
@@ -22,10 +21,12 @@ class singleMenuItemView(RetrieveUpdateAPIView, DestroyAPIView):
     serializer_class = menuSerializer
 
 class booking_two(ListCreateAPIView):
+    permission_classes = [IsAuthenticated]
     queryset = Booking.objects.all()
     serializer_class = bookingSerializer
 
 class single_booking_two(RetrieveUpdateAPIView, DestroyAPIView):
+    permission_classes = [IsAuthenticated]
     queryset = Booking.objects.all()
     serializer_class = bookingSerializer
 
