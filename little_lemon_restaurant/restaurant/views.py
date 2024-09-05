@@ -6,10 +6,11 @@ from .models import Booking, Menu
 from .serializers import menuSerializer, bookingSerializer
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
+from rest_framework.renderers import TemplateHTMLRenderer
 # from rest_framework.authentication import 
 
 # Create your views here.
-def index(req):
+def login(req):
     return render(req, 'login.html', {})
 
 class menuItemsView(ListCreateAPIView):
