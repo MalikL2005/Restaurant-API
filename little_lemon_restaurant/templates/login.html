@@ -4,9 +4,13 @@
     <form method="POST" action="http://127.0.0.1:8000/auth/token/login/">
         {% csrf_token %}
         <label for="username">Name </label>
-        <input type="text" name="text" id="username" value="username">
+        <input type="text" name="username" id="username">
         <label for="password">Password </label>
-        <input type="password" name="password" id="password" value="password">
+        <input type="password" name="password" id="password">
         <button>send</button>
+    </form>
+    <p>Don´t have an Account yet? Get started now!</p>
+    <form method="GET" action="http://127.0.0.1:8000/restaurant/sign-up">
+        <button id="go_to_sign_up">Sign up</button>
     </form>
 {% endblock %}
