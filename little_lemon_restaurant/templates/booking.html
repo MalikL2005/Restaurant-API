@@ -1,3 +1,9 @@
-{% for booking in bookings %}
-    <p>{{booking}}</p>
-{% endfor %}
+{% extends "base.html" %}
+{% block title %}
+    <h1>Bookings</h1>
+{% endblock %}
+{% block content %}
+    {% for booking in bookings %}
+        <p>{{booking}}</p>
+    {% endfor %}
+{% endblock %}

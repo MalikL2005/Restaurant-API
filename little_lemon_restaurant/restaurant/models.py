@@ -9,6 +9,7 @@ class Booking(models.Model):
     name = models.CharField(max_length=255)
     no_of_guests = models.IntegerField()
     bookingDate = models.DateTimeField()
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     def __str__(self): 
         return f'{self.id} - {self.name} ({self.no_of_guests}) on {self.bookingDate}'
 

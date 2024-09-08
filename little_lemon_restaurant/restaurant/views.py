@@ -34,7 +34,7 @@ class singleMenuItemView(RetrieveUpdateAPIView, DestroyAPIView):
 
 # User should only see own bookings 
 class view_all_create_bookings(ListCreateAPIView):
-    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
     renderer_classes = [TemplateHTMLRenderer]
     template_name = 'booking.html'
     def get(self, req):
