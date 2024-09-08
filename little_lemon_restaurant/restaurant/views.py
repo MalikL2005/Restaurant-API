@@ -25,8 +25,12 @@ def logout(req):
         return redirect('home')
 
 class menuItemsView(ListCreateAPIView):
-    queryset = Menu.objects.all()
-    serializer_class = menuSerializer
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'menu.html'
+    def get(self, req):
+        queryset = Menu.objects.all()
+        serialized_menu = menuSerializer(queryset, many=True)
+        return Response({'menu': serialized_menu.data})
 
 class singleMenuItemView(RetrieveUpdateAPIView, DestroyAPIView):
     queryset = Menu.objects.all()
