@@ -7,14 +7,22 @@ from .serializers import menuSerializer, bookingSerializer
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
 from rest_framework.renderers import TemplateHTMLRenderer
 from .forms import UserForm
-# from rest_framework.authentication import 
+from django.contrib import auth
+from django.shortcuts import redirect
 
 # Create your views here.
-def login(req):
-    return render(req, 'login.html', {})
+def home(req):
+    return render(req, 'home.html', {})
 
 def sign_up(req):
     return render(req, 'signup.html', {'form': UserForm})
+
+def logout(req):
+    if req.user.is_authenticated:
+        auth.logout(req)
+        return render(req, 'registration/logout.html')
+    else:
+        return redirect('home')
 
 class menuItemsView(ListCreateAPIView):
     queryset = Menu.objects.all()
@@ -24,6 +32,7 @@ class singleMenuItemView(RetrieveUpdateAPIView, DestroyAPIView):
     queryset = Menu.objects.all()
     serializer_class = menuSerializer
 
+# User should only see own bookings 
 class view_all_create_bookings(ListCreateAPIView):
     # permission_classes = [IsAuthenticated]
     renderer_classes = [TemplateHTMLRenderer]

@@ -1,16 +1,18 @@
-{% extends "index.html" %}
+{% extends "base.html" %}
+{% block title %}
+    <h1>Log In</h1>
+{% endblock %}
 {% block content %}
-    <h1>Login</h1>
-    <form method="POST" action="http://127.0.0.1:8000/auth/token/login/">
+    <form method="POST">
         {% csrf_token %}
         <label for="username">Name </label>
         <input type="text" name="username" id="username">
         <label for="password">Password </label>
         <input type="password" name="password" id="password">
-        <button>send</button>
+        <button type="submit">send</button>
     </form>
-    <p>Don´t have an Account yet? Get started now!</p>
     <form method="GET" action="http://127.0.0.1:8000/restaurant/sign-up">
+        <p>Don´t have an Account yet? Get started now!</p>
         <button id="go_to_sign_up">Sign up</button>
     </form>
 {% endblock %}
