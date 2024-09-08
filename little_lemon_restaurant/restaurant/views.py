@@ -36,6 +36,10 @@ class singleMenuItemView(RetrieveUpdateAPIView, DestroyAPIView):
     queryset = Menu.objects.all()
     serializer_class = menuSerializer
 
+def booking_redirect(req):
+    print(req.user)
+    return render(req, 'booking.html')
+
 # User should only see own bookings 
 class view_all_create_bookings(ListCreateAPIView):
     permission_classes = [IsAuthenticated]

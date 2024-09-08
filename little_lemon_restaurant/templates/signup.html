@@ -1,9 +1,17 @@
-{% extends "index.html" %}
+{% extends "base.html" %}
     {% block content %}
     <h1>Sign up</h1>
+    <form>
     {{ form.as_p }}
+    <label for="password">Password</label>
+    <input type="password" id="password">
+    <label for="password">Confirm password</label>
+    <input type="password" id="password">
+
+    <button type="submit">Create Account</button>
+    </form>
     <p>You already have an Account? Sign in now!</p>
-    <form method="GET" action="http://127.0.0.1:8000/restaurant/login">
+    <form method="GET" action="/login">
         <button id="go_to_sign_up">Sign in</button>
     </form>
     {% endblock %}

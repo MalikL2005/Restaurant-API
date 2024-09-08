@@ -3,7 +3,11 @@
     <h1>Bookings</h1>
 {% endblock %}
 {% block content %}
-    {% for booking in bookings %}
-        <p>{{booking}}</p>
-    {% endfor %}
+    {% if user.is_authenticated %}
+        <p>See your bookings</p>
+        {% for booking in bookings %}
+            <p>{{booking}}</p>
+        {% endfor %}
+    {% endif %}
+    
 {% endblock %}
