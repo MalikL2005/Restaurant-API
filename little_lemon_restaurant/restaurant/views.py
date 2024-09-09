@@ -6,7 +6,7 @@ from .models import Booking, Menu
 from .serializers import menuSerializer, bookingSerializer
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
 from rest_framework.renderers import TemplateHTMLRenderer
-from .forms import UserForm
+from .forms import UserForm, BookingForm
 from django.contrib import auth
 from django.shortcuts import redirect
 
@@ -38,17 +38,27 @@ class singleMenuItemView(RetrieveUpdateAPIView, DestroyAPIView):
 
 def booking_redirect(req):
     print(req.user)
-    return render(req, 'booking.html')
+    #user should only see own bookings 
+    bookings = Booking.objects.all()
+    serialized_bookings = bookingSerializer(bookings, many=True)
+    return render(req, 'booking.html', {'bookings': serialized_bookings.data})
 
 # User should only see own bookings 
 class view_all_create_bookings(ListCreateAPIView):
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
     renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'booking.html'
+    template_name = 'make_booking.html'
     def get(self, req):
-        queryset = Booking.objects.all()
-        serialized_booking = bookingSerializer(queryset, many=True)
-        return Response({'bookings': serialized_booking.data})
+        return Response({'form': BookingForm})
+
+def process_booking(req):
+    if req.method == 'POST':
+        print(req.POST.get('name'))
+        if req.user.is_authenticated:
+            print(req.user)
+        else: 
+            pass
+    return render(req, 'booking.html')
 
 class single_booking_two(RetrieveUpdateAPIView, DestroyAPIView):
     permission_classes = [IsAuthenticated]

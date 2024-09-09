@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}
+    <h1>Make booking</h1>
+{% endblock %}
+{% block content %}
+    <form method="POST" action="make_booking/process">
+        {% csrf_token %}
+        {{form.as_p}}
+        <!-- Make user select date and then available time -->
+        <button type="submit">Make booking</button>
+    </form>
+{% endblock %}

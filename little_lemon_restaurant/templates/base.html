@@ -6,14 +6,18 @@
       <link rel="stylesheet" href="/static/css/style.css">
    </head>
    <body>
-      <h1 style="text-align:center;">Welcome ToLittleLemon Restaurant</h1>
+      <!-- <h1 style="text-align:center;">Welcome ToLittleLemon Restaurant</h1> -->
       <img src="{% static 'img/logo.png' %}">
       <nav>
          <ul>
+            <li><a href="/">Home</a></li>
             <li><a href="/menu">Menu</a></li>
             <li><a href="/booking">Booking</a></li>
-            <li><a href="/login">Login</a></li>
-            <li><a href="/logout">Logout</a></li>
+            {% if user.is_authenticated %}
+               <li><a href="/logout">Logout</a></li>
+            {% else %}
+               <li><a href="/login">Login</a></li>
+            {% endif %}
          </ul>
       </nav>
       {% block title %}

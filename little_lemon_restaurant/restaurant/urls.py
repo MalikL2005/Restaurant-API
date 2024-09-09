@@ -7,6 +7,7 @@ urlpatterns=[
     path('', views.home, name='home'),
     path('booking/', views.booking_redirect),
     path('booking/make_booking', views.view_all_create_bookings.as_view(), name='view_all_bookings/create'),
+    path('booking/make_booking/process', views.process_booking),
     path('booking/<int:pk>', views.single_booking_two.as_view()),
     path('menu/', views.menuItemsView.as_view()),
     path('menu/<int:pk>', views.single_booking_two.as_view()),

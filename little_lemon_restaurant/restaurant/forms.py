@@ -9,4 +9,5 @@ class UserForm(ModelForm):
 class BookingForm(ModelForm):
     class Meta:
         model = Booking
-        fields = "__all__"
+        exclude = ('user',)
+        fields = '__all__'
