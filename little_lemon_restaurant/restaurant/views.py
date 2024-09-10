@@ -17,6 +17,14 @@ def home(req):
 def sign_up(req):
     return render(req, 'signup.html', {'form': UserForm})
 
+def validate_sign_up(req):
+    if req.method == 'POST':
+        new_user = UserForm(req.POST)
+        if new_user.is_valid():
+            new_user.save()
+            print('User has been saved')
+            return redirect('/login/')
+
 def logout(req):
     if req.user.is_authenticated:
         auth.logout(req)
@@ -56,7 +64,6 @@ def process_booking(req):
                 new_booking = new_booking_form.save(commit=False)
                 new_booking.user = req.user
             new_booking.save() 
-            print('saved')
     return render(req, 'booking.html')
 
 class single_booking_two(RetrieveUpdateAPIView, DestroyAPIView):
