@@ -1,9 +1,14 @@
 {% extends "base.html" %}
+{% load static %}
 {% block title %}
     <h1>Menu</h1>
 {% endblock %}
 {% block content %}
     {% for menu_item in menu %}
         <p>{{menu_item}}</p>
+        {% if menu_item.image %}
+            {{menu_item.image}}
+            <img src="{% static 'img/{{ menu_item.image }}' %}" alt="{{ menu_item.title }}">
+        {% endif %}
     {% endfor %}
 {% endblock %}
