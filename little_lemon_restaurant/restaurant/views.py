@@ -2,7 +2,7 @@ from django.shortcuts import render
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateAPIView, DestroyAPIView
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .models import Booking, Menu
+from .models import Booking, Menu, User
 from .serializers import menuSerializer, bookingSerializer
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
 from rest_framework.renderers import TemplateHTMLRenderer
@@ -37,15 +37,12 @@ class singleMenuItemView(RetrieveUpdateAPIView, DestroyAPIView):
     serializer_class = menuSerializer
 
 def booking_redirect(req):
-    print(req.user)
-    #user should only see own bookings 
-    bookings = Booking.objects.all()
+    if req.user.is_authenticated: bookings = Booking.objects.filter(user=req.user).all()
+    else: bookings = {}
     serialized_bookings = bookingSerializer(bookings, many=True)
     return render(req, 'booking.html', {'bookings': serialized_bookings.data})
 
-# User should only see own bookings 
 class view_all_create_bookings(ListCreateAPIView):
-    # permission_classes = [IsAuthenticated]
     renderer_classes = [TemplateHTMLRenderer]
     template_name = 'make_booking.html'
     def get(self, req):
@@ -53,11 +50,13 @@ class view_all_create_bookings(ListCreateAPIView):
 
 def process_booking(req):
     if req.method == 'POST':
-        print(req.POST.get('name'))
-        if req.user.is_authenticated:
-            print(req.user)
-        else: 
-            pass
+        new_booking_form = BookingForm(req.POST)
+        if new_booking_form.is_valid:
+            if req.user.is_authenticated:
+                new_booking = new_booking_form.save(commit=False)
+                new_booking.user = req.user
+            new_booking.save() 
+            print('saved')
     return render(req, 'booking.html')
 
 class single_booking_two(RetrieveUpdateAPIView, DestroyAPIView):

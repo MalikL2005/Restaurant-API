@@ -5,6 +5,9 @@
 {% block content %}
     <form method="POST" action="make_booking/process">
         {% csrf_token %}
+        <!-- <input type="text" id="name">
+        <input type="number" id="no_of_guests">
+        <input type="datetime" id="bookingDate"> -->
         {{form.as_p}}
         <!-- Make user select date and then available time -->
         <button type="submit">Make booking</button>
