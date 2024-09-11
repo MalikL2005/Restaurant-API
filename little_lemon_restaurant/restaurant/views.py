@@ -64,7 +64,7 @@ def process_booking(req):
                 new_booking = new_booking_form.save(commit=False)
                 new_booking.user = req.user
             new_booking.save() 
-    return render(req, 'booking.html')
+    return redirect('/booking/')
 
 class single_booking_two(RetrieveUpdateAPIView, DestroyAPIView):
     permission_classes = [IsAuthenticated]

@@ -230,6 +230,14 @@ footer p {
 	height: 100%;
 }
 
+.hide {
+    display: none;
+}
+
+.show_hidden:hover + .hide {
+    display: block; 
+}
+
 .menu-price{
     display: block;
     font-size: 1rem;

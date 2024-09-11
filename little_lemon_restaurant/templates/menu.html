@@ -5,10 +5,11 @@
 {% endblock %}
 {% block content %}
     {% for menu_item in menu %}
-        <p>{{menu_item}}</p>
-        {% if menu_item.image %}
-            {{menu_item.image}}
-            <img src="{% static 'img/{{ menu_item.image }}' %}" alt="{{ menu_item.title }}">
-        {% endif %}
+        <div>
+            <p>{{menu_item}}</p>
+            {% if menu_item.image %}
+                <img src="{% static menu_item.image %}">
+            {% endif %}
+        </div>
     {% endfor %}
 {% endblock %}
