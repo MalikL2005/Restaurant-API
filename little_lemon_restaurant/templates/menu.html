@@ -4,12 +4,16 @@
     <h1>Menu</h1>
 {% endblock %}
 {% block content %}
+    <section>
     {% for menu_item in menu %}
-        <div>
-            <p>{{menu_item}}</p>
+        <article>
+            <h2><strong>{{menu_item.title}}</strong></h2>
+            <p>{{menu_item.price}}$</p>
+            <p>{{menu_item.inventory}}</p>
             {% if menu_item.image %}
                 <img src="{% static menu_item.image %}">
             {% endif %}
-        </div>
+        </article>
     {% endfor %}
+    </section>    
 {% endblock %}
