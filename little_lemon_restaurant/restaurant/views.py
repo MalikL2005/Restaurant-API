@@ -62,7 +62,7 @@ def process_booking(req):
         post_data = {'name': req.POST['name'], 'no_of_guests': req.POST['no_of_guests'], 'bookingDate': req.POST['bookingDate']}
         print(post_data)
         #save post_data before redirecting
-        return redirect(f'/login?next={req.path}', post_data=post_data)
+        return redirect(f'/login?next={req.path}&data=${post_data}', post_data=post_data)
     if req.method == 'POST':
         new_booking_form = BookingForm(req.POST)
         if new_booking_form.is_valid:
