@@ -1,9 +1,19 @@
 {% extends "base.html" %}
+{% load static %}
 {% block title %}
     <h1>Menu</h1>
 {% endblock %}
 {% block content %}
+    <section>
     {% for menu_item in menu %}
-        <p>{{menu_item}}</p>
+        <article>
+            <h2><strong>{{menu_item.title}}</strong></h2>
+            <p>{{menu_item.price}}$</p>
+            <p>{{menu_item.inventory}}</p>
+            {% if menu_item.image %}
+                <img src="{% static menu_item.image %}">
+            {% endif %}
+        </article>
     {% endfor %}
+    </section>    
 {% endblock %}

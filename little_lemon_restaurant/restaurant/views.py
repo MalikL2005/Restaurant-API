@@ -17,6 +17,14 @@ def home(req):
 def sign_up(req):
     return render(req, 'signup.html', {'form': UserForm})
 
+def validate_sign_up(req):
+    if req.method == 'POST':
+        new_user = UserForm(req.POST)
+        if new_user.is_valid():
+            new_user.save()
+            print('User has been saved')
+            return redirect('/login/')
+
 def logout(req):
     if req.user.is_authenticated:
         auth.logout(req)
@@ -49,15 +57,20 @@ class view_all_create_bookings(ListCreateAPIView):
         return Response({'form': BookingForm})
 
 def process_booking(req):
+    print(req.POST)
+    if not req.user.is_authenticated:
+        post_data = {'name': req.POST['name'], 'no_of_guests': req.POST['no_of_guests'], 'bookingDate': req.POST['bookingDate']}
+        print(post_data)
+        #save post_data before redirecting
+        return redirect(f'/login?next={req.path}&data=${post_data}', post_data=post_data)
     if req.method == 'POST':
         new_booking_form = BookingForm(req.POST)
         if new_booking_form.is_valid:
             if req.user.is_authenticated:
                 new_booking = new_booking_form.save(commit=False)
                 new_booking.user = req.user
-            new_booking.save() 
-            print('saved')
-    return render(req, 'booking.html')
+                new_booking.save() 
+    return redirect('/booking/')
 
 class single_booking_two(RetrieveUpdateAPIView, DestroyAPIView):
     permission_classes = [IsAuthenticated]

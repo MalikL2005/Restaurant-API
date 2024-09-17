@@ -2,7 +2,7 @@
    <head>
       <title>Capstone Project</title>
       {% load static %}
-      <link rel="shortcut icon" href="#">
+      <link rel="shortcut icon" href="{% static 'img/favicon.ico' %}">
       <link rel="stylesheet" href="/static/css/style.css">
    </head>
    <body>
@@ -26,7 +26,11 @@
       {% endblock %}
    </body>
    <footer>
-      <p>Contacts</p>
-      <p>Social Medias</p>
+      <div class="show_hidden">
+         <p id="contacts-footer">Contacts</p>
+         <p class="hide">More infos abt. contacts</p>
+      </div>
+      <p class="show_hidden">Social Medias</p>
+      <p class="hide">More infos abt. Social Medias</p>
    </footer>
 </html>
