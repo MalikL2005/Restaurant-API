@@ -19,10 +19,15 @@ def sign_up(req):
 
 def validate_sign_up(req):
     if req.method == 'POST':
+        print(req.POST)
         new_user = UserForm(req.POST)
         if new_user.is_valid():
             new_user.save()
-            print('User has been saved')
+            authenticated_user = auth.authenticate(req, username = req.POST['username'], password = req.POST['password'])
+            if authenticated_user is not None:
+                auth.login(req, authenticated_user)
+                print('User has been saved and signed in')
+            # redirect user to last visited page 
             return redirect('/login/')
 
 def logout(req):

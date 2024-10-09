@@ -4,8 +4,6 @@
         <form action="/sign-up/validate/" method="POST">
             {% csrf_token %}
             {{ form.as_p }}
-            <label for="password">Password</label>
-            <input type="password" id="password" required>
             <label for="password">Confirm password</label>
             <input type="password" id="password_confirmation" required>
             <button type="submit">Create Account</button>
